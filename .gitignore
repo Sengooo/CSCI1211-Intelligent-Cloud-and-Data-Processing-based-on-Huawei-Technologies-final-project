@@ -1,0 +1,71 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Django
+# =========================
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+# Migrations (если хотите игнорировать auto, но обычно НЕ игнорируют)
+# */migrations/*
+# !*/migrations/__init__.py
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Pytest / coverage
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/
+
+# =========================
+# Redis dump (если локально)
+# =========================
+dump.rdb
+
+# =========================
+# Docker (если будете использовать)
+# =========================
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# Celery (если вдруг добавите)
+# =========================
+celerybeat-schedule
