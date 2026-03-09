@@ -20,7 +20,7 @@ class ApartmentAPITests(BaseApartmentTest):
             "title": "New Apartment",
             "description": "Nice place",
             "address": "Street 5",
-            "city": self.almaty.id,
+            "city_id": self.almaty.id,
             "price_per_night": 600,
             "rooms": 3
         }
@@ -38,7 +38,7 @@ class ApartmentAPITests(BaseApartmentTest):
             "title": "Illegal Apartment",
             "description": "Should fail",
             "address": "Street 10",
-            "city": self.almaty.id,
+            "city_id": self.almaty.id,
             "price_per_night": 400,
             "rooms": 2
         }

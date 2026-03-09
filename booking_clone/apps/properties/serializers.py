@@ -1,9 +1,24 @@
 from rest_framework import serializers
-from .models import Apartment
+from .models import Apartment, City
+
+
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ["id", "name"]
+
 
 class ApartmentSerializer(serializers.ModelSerializer):
-    # This makes the city output as "Paris" instead of ID "5"
+
     owner = serializers.ReadOnlyField(source="owner.email")
+
+    city = CitySerializer(read_only=True)
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset=City.objects.all(),
+        source="city",
+        write_only=True
+    )
 
     class Meta:
         model = Apartment
@@ -13,6 +28,7 @@ class ApartmentSerializer(serializers.ModelSerializer):
             "description",
             "address",
             "city",
+            "city_id",
             "price_per_night",
             "rooms",
             "owner",
