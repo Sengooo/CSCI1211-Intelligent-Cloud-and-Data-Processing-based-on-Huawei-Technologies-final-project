@@ -9,6 +9,7 @@ from apps.users.models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True, style={"input_type": "password"})
+    avatar = serializers.SerializerMethodField()
 
     first_name = serializers.CharField()
     last_name = serializers.CharField()
@@ -66,8 +67,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        # This calls the CustomUserManager method you wrote earlier
-        return CustomUser.objects.create_user(**validated_data)
+        password = validated_data.pop("password")
+        user = CustomUser.objects.create_user(password=password, **validated_data)
+        return user
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -83,7 +85,7 @@ class UserLoginSerializer(serializers.Serializer):
         password = data.get("password")
 
         if email and password:
-            # Стандартная функция Django: ищет юзера и проверяет пароль
+            # Search the User email and check password
             user = authenticate(email=email, password=password)
 
             if not user:
@@ -94,7 +96,6 @@ class UserLoginSerializer(serializers.Serializer):
         else:
             raise ValidationError("Must include 'email' and 'password'.")
 
-        # Мы добавляем найденного юзера в проверенные данные,
-        # чтобы View мог его легко достать и выдать ему токен
+        # We show user data if we found
         data["user"] = user
         return data
