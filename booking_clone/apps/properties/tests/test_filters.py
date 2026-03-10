@@ -5,6 +5,14 @@ from .base import BaseApartmentTest
 
 class ApartmentFilterTests(BaseApartmentTest):
 
+    def test_filter_by_country(self):
+        
+        response = self.client.get(f"/properties/apartments/?country={self.kazakhstan.id}")
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 3)
+
+
     def test_filter_by_city(self):
 
         response = self.client.get(f"/properties/apartments/?city={self.almaty.id}")

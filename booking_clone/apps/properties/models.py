@@ -1,12 +1,35 @@
 from django.db import models
 from django.conf import settings
 
-# HACK: This allows to run migrations and test Apartment.
-# Delete this block once the real City model appears.
-class City(models.Model):
-    name = models.CharField(max_length=100)
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        verbose_name_plural = "Countries"
+
     def __str__(self):
         return self.name
+
+
+class City(models.Model):
+    name = models.CharField(max_length=100)
+    
+    country = models.ForeignKey(
+        Country,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="cities"
+    )
+
+    class Meta:
+        unique_together = ["name", "country"]
+        verbose_name_plural = "Cities"
+
+    def __str__(self):
+        return f"{self.name}, {self.country}"
     
 
 

@@ -9,7 +9,7 @@ from .permissions import IsLandlordOrReadOnly, IsApartmentOwner
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):
-    queryset = Apartment.objects.select_related("city", "owner").all()
+    queryset = Apartment.objects.select_related("city", "city__country", "owner").all()
     serializer_class = ApartmentSerializer
 
     filter_backends = [DjangoFilterBackend]

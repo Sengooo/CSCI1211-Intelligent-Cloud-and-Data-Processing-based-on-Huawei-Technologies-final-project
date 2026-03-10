@@ -1,12 +1,24 @@
 from rest_framework import serializers
-from .models import Apartment, City
+from .models import Apartment, City, Country
 
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ["id", "name"]
 
 
 class CitySerializer(serializers.ModelSerializer):
+    country = CountrySerializer(read_only=True)
+    country_id = serializers.PrimaryKeyRelatedField(
+        queryset=Country.objects.all(),
+        source="country",
+        write_only=True
+    )
+
     class Meta:
         model = City
-        fields = ["id", "name"]
+        fields = ["id", "name", "country", "country_id"]
 
 
 class ApartmentSerializer(serializers.ModelSerializer):

@@ -14,9 +14,13 @@ class ApartmentFilter(django_filters.FilterSet):
         lookup_expr="lte"
     )
 
+    # allows to use "?country=1" instead of "?city__country=1"
+    country = django_filters.NumberFilter(field_name="city__country", lookup_expr="exact")
+
     class Meta:
         model = Apartment
         fields = [
             "city",
+            # "city__country",
             "rooms",
         ]

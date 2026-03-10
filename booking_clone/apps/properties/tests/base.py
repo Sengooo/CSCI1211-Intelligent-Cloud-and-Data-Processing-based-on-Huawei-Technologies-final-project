@@ -1,7 +1,7 @@
 from rest_framework.test import APITestCase, APIClient
 
 from apps.users.models import CustomUser
-from apps.properties.models import City, Apartment
+from apps.properties.models import City, Apartment, Country
 
 
 class BaseApartmentTest(APITestCase):
@@ -22,9 +22,12 @@ class BaseApartmentTest(APITestCase):
             is_renter=True
         )
 
+        # Countries
+        self.kazakhstan = Country.objects.create(name="Kazakhstan")
+
         # Cities
-        self.almaty = City.objects.create(name="Almaty")
-        self.astana = City.objects.create(name="Astana")
+        self.almaty = City.objects.create(name="Almaty", country=self.kazakhstan)
+        self.astana = City.objects.create(name="Astana", country=self.kazakhstan)
         
 
         # Apartment 1: Almaty, Price 500, Rooms 2
