@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from decouple import config 
 
 from settings.conf import *  # noqa: F403
 
@@ -32,6 +33,7 @@ DJANGO_AND_THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "django_filters",
+    "debug_toolbar"
 ]
 
 PROJECT_APPS = [
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 # ----------------------------------------------
@@ -95,6 +98,18 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+# Caches
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": config("BLOG_REDIS_URL", default="redis://127.0.0.1:6379/1"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 
 # ----------------------------------------------
 # Internationalization

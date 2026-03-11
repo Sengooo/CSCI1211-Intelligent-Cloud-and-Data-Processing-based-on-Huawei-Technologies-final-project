@@ -9,7 +9,7 @@ from apps.users.models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True, style={"input_type": "password"})
-    avatar = serializers.SerializerMethodField()
+    # avatar = serializers.SerializerMethodField()
 
     first_name = serializers.CharField()
     last_name = serializers.CharField()
@@ -24,7 +24,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "password",
             "first_name",
             "last_name",
-            "avatar",
             "is_landlord",
             "is_renter",
         ]
@@ -49,7 +48,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "password",
             "first_name",
             "last_name",
-            "avatar",
             "is_landlord",
             "is_renter",
         )

@@ -1,7 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
 from django_filters.rest_framework import DjangoFilterBackend
+# from django.core.cache import cache 
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from .models import Apartment
 from .serializers import ApartmentSerializer
@@ -26,7 +30,7 @@ class ApartmentViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-
+    @method_decorator(cache_page(60, key_prefix="apartment_review"))
     @action(detail=True, methods=["get"])
     def reviews(self, request, pk=None):
 
