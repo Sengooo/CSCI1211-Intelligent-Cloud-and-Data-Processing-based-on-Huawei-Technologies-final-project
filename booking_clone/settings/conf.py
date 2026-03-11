@@ -102,6 +102,10 @@ DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.profiling.ProfilingPanel",
 ]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # ----------------------------------------------
 # Shell plus configuration (Django extensions)
 #

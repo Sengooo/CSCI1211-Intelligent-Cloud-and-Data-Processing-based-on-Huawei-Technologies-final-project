@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from .conf import DEBUG
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -26,3 +28,9 @@ urlpatterns = [
     path('reviews/', include('apps.reviews.urls')),
     path('bookings/', include('apps.bookings.urls'))
 ]
+
+if DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

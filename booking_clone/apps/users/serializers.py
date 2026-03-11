@@ -29,7 +29,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "password",
             "first_name",
             "last_name",
-            "avatar",
             "is_landlord",
             "is_renter",
         ]
@@ -54,7 +53,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "password",
             "first_name",
             "last_name",
-            "avatar",
             "is_landlord",
             "is_renter",
         )

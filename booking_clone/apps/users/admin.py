@@ -10,7 +10,6 @@ class CustomUserAdmin(UserAdmin):
         "email",
         "first_name",
         "last_name",
-        "avatar",
         "is_landlord",
         "is_renter",
         "is_active",
