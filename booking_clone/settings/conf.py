@@ -1,17 +1,42 @@
-# Project modules
-from decouple import config
 from datetime import timedelta
+
+from decouple import config
 
 # ----------------------------------------------
 # Env id
 #
-ENV_POSSIBLE_OPTIONS = (
-    "local",
-    "prod",
-)
-BOOKING_CLONE_ENV_ID = config("BOOKING_CLONE_ENV_ID", cast=str, default="development")
-DEBUG = config("DEBUG", cast=bool, default=True)
-SECRET_KEY = config("SECRET_KEY", default="твой-запасной-ключ")
+ENV_POSSIBLE_OPTIONS = ("local", "prod")
+
+
+def _read_env_id() -> str:
+    # Backward compatibility: support both old and new env variable names.
+    raw = (
+        config("BOOKING_CLONE_ENV_ID", default="")
+        or config("DJANGORLAR_ENV_ID", default="")
+        or "local"
+    )
+    normalized = str(raw).strip().lower()
+    if normalized in {"production", "release"}:
+        return "prod"
+    if normalized not in ENV_POSSIBLE_OPTIONS:
+        return "local"
+    return normalized
+
+
+def _read_debug() -> bool:
+    raw = str(config("DEBUG", default="true")).strip().lower()
+    if raw in {"release", "prod", "production"}:
+        return False
+    if raw in {"1", "true", "yes", "on"}:
+        return True
+    if raw in {"0", "false", "no", "off"}:
+        return False
+    return True
+
+
+BOOKING_CLONE_ENV_ID = _read_env_id()
+DEBUG = _read_debug()
+SECRET_KEY = config("SECRET_KEY", default="dev-secret-key-change-me")
 
 if BOOKING_CLONE_ENV_ID == "local":
     from .env.local import *  # noqa: F403
