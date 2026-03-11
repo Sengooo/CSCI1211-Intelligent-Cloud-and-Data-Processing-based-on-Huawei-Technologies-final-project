@@ -23,4 +23,5 @@ urlpatterns = [
     #apps urls
     path('users/', include('apps.users.urls')),
     path('properties/', include('apps.properties.urls')),
+    path('apps.bookings/', include('apps.bookings.urls'))
 ]
