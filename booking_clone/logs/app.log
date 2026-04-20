@@ -1,0 +1,10 @@
+[INFO] 2026-04-20 18:39:43,933 | apps.users | New user registered: rahat0508@gmail.com (landlord=True, renter=False)
+[INFO] 2026-04-20 18:39:49,591 | apps.users | User logged in: rahat0508@gmail.com
+[INFO] 2026-04-20 18:40:32,451 | apps.users | New user registered: 123@123.com (landlord=False, renter=True)
+[INFO] 2026-04-20 18:40:42,642 | apps.users | User logged in: 123@123.com
+[INFO] 2026-04-20 18:43:35,284 | apps.bookings | Booking created: tenant=123@123.com, apartment_id=2
+[INFO] 2026-04-20 18:43:41,157 | apps.bookings | Booking 1 cancelled by 123@123.com
+[INFO] 2026-04-20 18:43:55,189 | apps.users | User logged in: rahat0508@gmail.com
+[INFO] 2026-04-20 18:44:19,073 | apps.users | User logged in: 123@123.com
+[INFO] 2026-04-20 18:44:33,880 | apps.bookings | Booking created: tenant=123@123.com, apartment_id=2
+[INFO] 2026-04-20 18:44:53,658 | apps.bookings | Booking 2 cancelled by 123@123.com

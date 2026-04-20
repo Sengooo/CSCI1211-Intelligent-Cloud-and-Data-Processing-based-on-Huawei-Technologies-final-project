@@ -496,3 +496,57 @@ Planned backend expansion:
 
 This documentation is maintained by the team and updated per branch scope.
 When a module is merged to `main`, README sections should be synchronized accordingly.
+
+---
+
+## 16. Final Project: Cloud & Data Processing
+
+This section documents the fulfillment of the Final Project requirements for the "Intelligent Cloud & Data Processing" course, focusing on the frontend architecture and Docker containerization.
+
+### 16.1 Frontend Architecture (Vue.js + Vite)
+
+The frontend is built as a Single Page Application (SPA) using **Vue.js** and **Vite**. The codebase is located in the `booking-frontend` directory.
+
+**Key Features Implemented on the Frontend:**
+- **Vue Router**: Client-side routing to navigate between pages.
+- **State Management**: Centralized store for user authentication and session state (`/stores/auth.js`).
+- **API Integration**: Service layer to communicate seamlessly with the Django REST API (`/services/api.js`).
+- **Views & Components**:
+  - `LoginView.vue` & `RegisterView.vue`: Secure user authentication flows.
+  - `ApartmentsView.vue`: Listing and filtering available properties.
+  - `ApartmentDetailView.vue`: Detailed view of a specific property.
+  - `MyApartmentsView.vue`: Dashboard for hosts to manage their property listings.
+  - `BookingsView.vue`: Interface for managing reservations and checking booking statuses.
+
+### 16.2 Containerization (Docker Architecture)
+
+To ensure consistency across development and deployment environments, the entire application has been containerized using **Docker** and orchestrated with **Docker Compose**.
+
+**Multi-Container Setup (`docker-compose.yml`):**
+
+1. **Web (Django Backend)**:
+   - Built from the root `Dockerfile` using Python.
+   - Exposes port `8000`.
+   - Volume-mounted for hot-reloading during local development (`./booking_clone:/app`).
+   - Connected to Redis for caching, celery tasks, and session management.
+
+2. **Frontend (Vue.js)**:
+   - Built from `booking-frontend/Dockerfile` using a lightweight `node:22-alpine` base image.
+   - Exposes Vite's default port `5173`.
+   - Uses bind mounts (`volumes`) to sync local source code while preserving the container's `node_modules` for instant updates without rebuilding.
+   - Configured with `depends_on: web` to ensure the backend is initialized first.
+
+3. **Redis**:
+   - Uses the official `redis:7-alpine` image.
+   - Exposes port `6379`.
+   - Persistent data storage configured via Docker volumes (`redis_data`).
+
+**Running the Application via Docker:**
+```bash
+docker-compose up --build
+```
+- **Frontend** will be accessible at: `http://localhost:5173`
+- **Backend API** will be available at: `http://localhost:8000/api/`
+
+### 16.3 Deployment Preparation
+The application is fully containerized and decoupled, fulfilling the core requirements. It is ready to be deployed to cloud platforms (such as Render, Railway, AWS, or Huawei Cloud) using the provided Dockerfiles and container configurations.

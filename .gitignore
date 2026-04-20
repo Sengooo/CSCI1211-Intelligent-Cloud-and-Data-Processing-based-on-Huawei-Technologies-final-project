@@ -5,19 +5,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Артефакты для ии, например, Claude или GPT
-artifacts/
-
+# =========================
 # Virtual environment
+# =========================
 venv/
 .env/
 .venv/
-
-# logs
-!logs/
-!logs/.gitkeep
-*.log
-
+env/
+ENV/
 
 # =========================
 # Environment variables
@@ -31,12 +26,9 @@ venv/
 # =========================
 local_settings.py
 db.sqlite3
+db.sqlite3-journal
 media/
 staticfiles/
-
-# Migrations (если хотите игнорировать auto, но обычно НЕ игнорируют)
-# */migrations/*
-# !*/migrations/__init__.py
 
 # =========================
 # IDE / Editor
@@ -45,10 +37,6 @@ staticfiles/
 .idea/
 *.swp
 *.swo
-
-# =========================
-# OS files
-# =========================
 .DS_Store
 Thumbs.db
 
@@ -60,18 +48,10 @@ htmlcov/
 .pytest_cache/
 
 # =========================
-# Redis dump (если локально)
+# Redis / Celery
 # =========================
 dump.rdb
-
-# =========================
-# Docker (если будете использовать)
-# =========================
 *.pid
 *.seed
 *.pid.lock
-
-# =========================
-# Celery (если вдруг добавите)
-# =========================
 celerybeat-schedule

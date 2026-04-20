@@ -14,14 +14,22 @@ services:
     depends_on:
       - redis
 
+  frontend:
+    build: ./booking-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./booking-frontend:/app
+      - /app/node_modules
+    depends_on:
+      - web
+
   redis:
     image: redis:7-alpine
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
-
-
 
 volumes:
   redis_data:
