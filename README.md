@@ -1,5 +1,7 @@
 # Booking Clone — Team Backend Project (Django + DRF + PostgreSQL)
 
+**🚀 Live Deployment:** [https://qazbookingg.onrender.com/](https://qazbookingg.onrender.com/)
+
 This repository contains our team backend project: a simplified booking service API.
 The project is built for university practice and is organized as incremental modules
 (properties, users/auth, bookings, reviews, logging).
