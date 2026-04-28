@@ -41,3 +41,28 @@ class ApartmentViewSet(viewsets.ModelViewSet):
         serializer = ReviewSerializer(reviews, many=True)
 
         return Response(serializer.data)
+
+
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from .services import AIDescriptionGenerator
+
+class GenerateDescriptionAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        rooms = request.data.get("rooms")
+        features = request.data.get("features", "")
+        location = request.data.get("location", "")
+
+        if not rooms:
+            return Response({"error": "rooms is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        description = AIDescriptionGenerator.generate_description(
+            rooms=rooms,
+            features=features,
+            location=location
+        )
+
+        return Response({"description": description}, status=status.HTTP_200_OK)
